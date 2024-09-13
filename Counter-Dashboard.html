@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Counter Dashboard</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            max-width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .card h3 {
+            margin-top: 0;
+        }
+        .counter-display {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #fafafa;
+        }
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .controls select, .controls input, .controls button {
+            font-size: 1rem;
+            margin: 5px;
+            width: 100%;
+        }
+        .controls input {
+            padding: 10px;
+        }
+        .controls button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Counter Display Cards -->
+        <div class="card">
+            <h3>Counter Values</h3>
+            <div class="counter-display" id="counter1">0</div>
+            <div class="counter-display" id="counter2">0</div>
+            <div class="counter-display" id="counter3">0</div>
+            <div class="counter-display" id="counter4">0</div>
+        </div>
+        <!-- Controls Card -->
+        <div class="card">
+            <h3>Controls</h3>
+            <select id="counterSelect">
+                <option value="1">Counter 1</option>
+                <option value="2">Counter 2</option>
+                <option value="3">Counter 3</option>
+                <option value="4">Counter 4</option>
+            </select>
+            <input type="number" id="inputValue" placeholder="Enter value" />
+            <button onclick="setCounter()">Set Total</button>
+            <button onclick="addToCounter()">Add</button>
+            <button onclick="subtractFromCounter()">Subtract</button>
+        </div>
+    </div>
+    <script>
+        const counters = {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0
+        };
+
+        function updateCounter(counterId) {
+            document.getElementById(`counter${counterId}`).textContent = counters[counterId];
+        }
+
+        function setCounter() {
+            const selectedCounter = document.getElementById('counterSelect').value;
+            const value = parseInt(document.getElementById('inputValue').value, 10);
+            if (!isNaN(value)) {
+                counters[selectedCounter] = value;
+                updateCounter(selectedCounter);
+            }
+        }
+
+        function addToCounter() {
+            const selectedCounter = document.getElementById('counterSelect').value;
+            const valueToAdd = parseInt(document.getElementById('inputValue').value, 10);
+            if (!isNaN(valueToAdd)) {
+                counters[selectedCounter] += valueToAdd;
+                updateCounter(selectedCounter);
+            }
+        }
+
+        function subtractFromCounter() {
+            const selectedCounter = document.getElementById('counterSelect').value;
+            const valueToSubtract = parseInt(document.getElementById('inputValue').value, 10);
+            if (!isNaN(valueToSubtract)) {
+                counters[selectedCounter] -= valueToSubtract;
+                updateCounter(selectedCounter);
+            }
+        }
+    </script>
+</body>
+</html>
